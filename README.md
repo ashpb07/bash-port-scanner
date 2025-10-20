@@ -29,3 +29,14 @@ On Debian/Ubuntu:
 ```bash
 sudo apt update
 sudo apt install zenity netcat dnsutils
+
+
+
+
+
+Make the script executable (if not already):
+chmod +x port-scanner.sh
+
+
+Run it:
+./port-scanner.sh
