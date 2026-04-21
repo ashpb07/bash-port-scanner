@@ -57,18 +57,17 @@ chmod +x port-scanner.sh
 ./port-scanner.sh
 ```
 ```mermaid
-
 flowchart TD
 
 A([Start]) --> B[Launch Zenity Form]
 
 B --> C{User Cancelled?}
 C -->|Yes| D[Exit Script]
-C -->|No| E[Parse Input<br/>(Type, Target, Start Port, End Port)]
+C -->|No| E[Parse Input: Type, Target, Ports]
 
 E --> F{Valid Input?}
-F -->|No| G[Show Error via Zenity<br/>Exit]
-F -->|Yes| H{Type = Hostname?}
+F -->|No| G[Show Error and Exit]
+F -->|Yes| H{Type is Hostname?}
 
 H -->|Yes| I[Resolve Hostname using host]
 I --> J{Resolution Successful?}
@@ -79,7 +78,7 @@ H -->|No| K
 
 K --> L[Initialize Open Ports List]
 
-L --> M[Loop: Port = Start → End]
+L --> M[Loop Through Ports]
 
 M --> N[Scan Port using nc]
 
@@ -93,12 +92,13 @@ Q --> R{More Ports?}
 R -->|Yes| M
 R -->|No| S{Any Open Ports Found?}
 
-S -->|No| T[Show "No Open Ports" via Zenity]
-S -->|Yes| U[Display Open Ports via Zenity]
+S -->|No| T[Show No Open Ports]
+S -->|Yes| U[Display Open Ports]
 
 T --> V([End])
 U --> V
 ```
+
 
 
 ---
