@@ -56,6 +56,50 @@ chmod +x port-scanner.sh
 ```bash
 ./port-scanner.sh
 ```
+```mermaid
+
+flowchart TD
+
+A([Start]) --> B[Launch Zenity Form]
+
+B --> C{User Cancelled?}
+C -->|Yes| D[Exit Script]
+C -->|No| E[Parse Input<br/>(Type, Target, Start Port, End Port)]
+
+E --> F{Valid Input?}
+F -->|No| G[Show Error via Zenity<br/>Exit]
+F -->|Yes| H{Type = Hostname?}
+
+H -->|Yes| I[Resolve Hostname using host]
+I --> J{Resolution Successful?}
+J -->|No| G
+J -->|Yes| K[Set Target IP]
+
+H -->|No| K
+
+K --> L[Initialize Open Ports List]
+
+L --> M[Loop: Port = Start → End]
+
+M --> N[Scan Port using nc]
+
+N --> O{Port Open?}
+O -->|Yes| P[Add Port to List]
+O -->|No| Q[Continue]
+
+P --> Q
+Q --> R{More Ports?}
+
+R -->|Yes| M
+R -->|No| S{Any Open Ports Found?}
+
+S -->|No| T[Show "No Open Ports" via Zenity]
+S -->|Yes| U[Display Open Ports via Zenity]
+
+T --> V([End])
+U --> V
+```
+
 
 ---
 
